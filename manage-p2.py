@@ -1,6 +1,6 @@
 import logging, sys, os
 # from manageLib import mv_pesada, mv_docker, mv_docker_compose, mv_kubernetes, destroy_cluster, config_cluster, docker_destroy, info_cluster
-from manageLib import mv_pesada
+from manageLib import mv_pesada, mv_docker, docker_destroy
 
 def init_log():
     # Creacion y configuracion del logger
@@ -22,6 +22,12 @@ def main():
     if orden == "parte1":
         puerto = sys.argv[2]
         mv_pesada(puerto)
+
+    elif orden == "parte2":
+        if sys.argv[2] == "start":
+            mv_docker()
+        elif sys.argv[2] == "destruir":
+            docker_destroy()
         
     else:
         print(f"Orden no reconocida: {orden}")
