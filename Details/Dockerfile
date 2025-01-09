@@ -18,7 +18,7 @@ ENV ENABLE_EXTERNAL_BOOK_SERVICE=true
 RUN apt-get clean && apt-get update -y \
     && apt-get install -y git \
     || echo "Fallo al instalar git, verifica la conectividad" && exit 1 \
-    && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /practica_creativa2 \
+    && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git ./practica_creativa2 \
     || echo "Fallo al clonar el repositorio, verifica la URL o el acceso" && exit 1
 
 # Cambiar directorio al de /details
