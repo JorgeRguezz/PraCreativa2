@@ -9,9 +9,15 @@ ENV SERVICE_VERSION=v1
 # Cambiar directorio al de /opt/microservices
 WORKDIR /opt/microservices
 
-# Actualizar sistema e instalar dependencias
-RUN apt-get update && apt-get install -y git \
-    && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /practica_creativa2
+# # Actualizar sistema e instalar dependencias
+# RUN apt-get update && apt-get install -y git \
+#     && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /practica_creativa2
+
+RUN apt-get clean && apt-get update -y \
+    && apt-get install -y git \
+    || echo "Fallo al instalar git, verifica la conectividad" && exit 1 \
+    && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /practica_creativa2 \
+    || echo "Fallo al clonar el repositorio, verifica la URL o el acceso" && exit 1
 
 # Cambiar directorio al de /ratings
 WORKDIR /practica_creativa2/bookinfo/src/ratings/
