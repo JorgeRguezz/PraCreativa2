@@ -41,21 +41,29 @@ def mv_docker_compose (version, ratings, star):
   log.debug("CONSTRUIR PRODUCT_PAGE")
   subprocess.call(['sudo', 'docker', 'build', '-t', f'product-page/{GRUP_NOM}:latest', './ProductPage'])
   # subprocess.call(['sudo', 'docker', 'build', '-t', f'product-page/{GRUP_NOM}', './ProductPage'])
-  subprocess.call(['sudo', 'docker', 'run', '--name', f'product-page-{GRUP_NOM}', '-p', '9080', '-d', '-it', f'product-page/{GRUP_NOM}:latest'])
+  # subprocess.call(['sudo', 'docker', 'run', '--name', f'product-page-{GRUP_NOM}', '-p', '9080', '-d', '-it', f'product-page/{GRUP_NOM}:latest'])
+  subprocess.call(['sudo', 'docker', 'run', '--name', f'product-page-{GRUP_NOM}', '-p', '9080:9080', '-e', f'GROUP_NUM={GRUP_NUM}', '-d', f'product-page/{GRUP_NOM}:latest'])
+
   # Crear la imagen de Details
   log.debug("CONSTRUIR DETAILS")
   subprocess.call(['sudo', 'docker', 'build', '-t', f'details/{GRUP_NOM}:latest', './Details'])
-  subprocess.call(['sudo', 'docker', 'run', '--name', f'details-{GRUP_NOM}', '-p', '9080', '-d', '-it', f'details/{GRUP_NOM}:latest'])
+  # subprocess.call(['sudo', 'docker', 'run', '--name', f'details-{GRUP_NOM}', '-p', '9080', '-d', '-it', f'details/{GRUP_NOM}:latest'])
+  subprocess.call(['sudo', 'docker', 'run', '--name', f'details-{GRUP_NOM}', '-p', '9080:9080', '-e', f'GROUP_NUM={GRUP_NUM}', '-d', f'details/{GRUP_NOM}:latest'])
+
   # Crear la imagen de Ratings
   log.debug("CONSTRUIR RATINGS")
   subprocess.call(['sudo', 'docker', 'build', '-t', f'ratings/{GRUP_NOM}:latest', './Ratings'])
-  subprocess.call(['sudo', 'docker', 'run', '--name', f'ratings-{GRUP_NOM}', '-p', '9080', '-d', '-it', f'ratings/{GRUP_NOM}:latest'])
+  # subprocess.call(['sudo', 'docker', 'run', '--name', f'ratings-{GRUP_NOM}', '-p', '9080', '-d', '-it', f'ratings/{GRUP_NOM}:latest'])
+  subprocess.call(['sudo', 'docker', 'run', '--name', f'ratings-{GRUP_NOM}', '-p', '9080:9080', '-e', f'GROUP_NUM={GRUP_NUM}', '-d', f'ratings/{GRUP_NOM}:latest'])
+
   # Crear la imagen de Reviews
   log.debug("CONSTRUIR REVIEWS")
   os.chdir('practica_creativa2/bookinfo/src/reviews')
   subprocess.call(['sudo', 'docker', 'run', '--rm', '-u', 'root', '-v', '/home/gradle/project', '-w', '/home/gradle/project', 'gradle:4.8.1', 'gradle', 'clean', 'build'])
   subprocess.call(['sudo', 'docker', 'build', '-t', f'reviews/{GRUP_NOM}:latest', './reviews-wlpcfg']) 
-  subprocess.call(['sudo', 'docker', 'run', '--name', f'reviews-{GRUP_NOM}', '-p', '9080', '-d', '-it', f'reviews/{GRUP_NOM}:latest'])
+  # subprocess.call(['sudo', 'docker', 'run', '--name', f'reviews-{GRUP_NOM}', '-p', '9080', '-d', '-it', f'reviews/{GRUP_NOM}:latest'])
+  subprocess.call(['sudo', 'docker', 'run', '--name', f'reviews-{GRUP_NOM}', '-p', '9080:9080', '-e', f'GROUP_NUM={GRUP_NUM}', '-d', f'reviews/{GRUP_NOM}:latest'])
+
   
   # Cambiar al directorio raíz
   os.chdir(raiz)
