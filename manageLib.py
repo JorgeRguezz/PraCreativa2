@@ -36,6 +36,7 @@ def mv_docker_compose (version, ratings, star):
   raiz = os.getcwd()
   # Clonar repositorio de la app
   subprocess.call(['git', 'clone', 'https://github.com/CDPS-ETSIT/practica_creativa2.git', '/practica_creativa2'])
+  
   # Crear la imagen de ProductPage
   log.debug("CONSTRUIR PRODUCT_PAGE")
   subprocess.call(['sudo', 'docker', 'build', '-t', f'product-page/{GRUP_NOM}:latest', './ProductPage'])
