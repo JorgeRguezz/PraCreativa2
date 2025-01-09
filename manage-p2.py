@@ -1,6 +1,6 @@
 import logging, sys, os
 # from manageLib import mv_pesada, mv_docker, mv_docker_compose, mv_kubernetes, destroy_cluster, config_cluster, docker_destroy, info_cluster
-from manageLib import mv_pesada, mv_docker, docker_destroy
+from manageLib import mv_pesada, mv_docker, docker_destroy, mv_docker_compose
 
 def init_log():
     # Creacion y configuracion del logger
@@ -28,6 +28,17 @@ def main():
             mv_docker()
         elif sys.argv[2] == "destruir":
             docker_destroy()
+    elif orden == "parte3":
+        if sys.argv[2] != "destruir":
+            version = sys.argv[2]
+            if version == "v1":
+                mv_docker_compose("v1", False, "black")
+            elif version == "v2":
+                mv_docker_compose("v2", True, "black")
+            else:
+                mv_docker_compose("v3", True, "red")
+        else:
+                docker_destroy()
         
     else:
         print(f"Orden no reconocida: {orden}")
