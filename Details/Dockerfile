@@ -35,6 +35,9 @@ RUN apt-get update -y \
 # Cambiar directorio al de /details
 WORKDIR /practica_creativa2/bookinfo/src/details
 
+# Comprobar directorio
+RUN pwd
+
 # Copiar details.rb
 RUN cp details.rb /opt/microservices
 
