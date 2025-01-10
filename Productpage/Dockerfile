@@ -10,10 +10,10 @@ ENV GROUP_NUMBER=UNDEFINED
 WORKDIR /home
 
 # Ejecutar comandos de instalación
-RUN sudo apt-get update -y \
-        && sudo apt-get install -y python3-pip \
-        && sudo apt-get install -y git \
-        && sudo git clone https://github.com/CDPS-ETSIT/practica_creativa2.git \
+RUN apt-get update -y \
+        && apt-get install -y python3-pip \
+        && apt-get install -y git \
+        && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git \
         && cd practica_creativa2/bookinfo/src/productpage/ \
         && pip3 install -r requirements.txt
 

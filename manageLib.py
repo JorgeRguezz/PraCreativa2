@@ -29,7 +29,9 @@ def docker_destroy():
   subprocess.call(['sudo docker stop $(sudo docker ps -aq)'], shell=True)
   subprocess.call(['sudo docker rm $(sudo docker ps -aq)'], shell=True)
   subprocess.call(['sudo docker rmi --force $(sudo docker images -q)'], shell=True)
-  
+
+
+# 3. DESPLIEGUE DE LA APLICACIÓN USANDO DOCKER-COMPOSE
 def mv_docker_compose (version, ratings, star):
   log.debug("mv_docker_compose ")
   # Guardar directorio raíz
@@ -39,7 +41,8 @@ def mv_docker_compose (version, ratings, star):
   
   # Crear la imagen de ProductPage
   log.debug("CONSTRUIR PRODUCT_PAGE")
-  subprocess.call(['sudo', 'docker', 'build', '-t', f'product-page/{GRUP_NOM}:latest', './ProductPage'])
+
+  subprocess.call(['sudo', 'docker', 'build', '-t', f'product-page/{GRUP_NOM}:latest', './Productpage'])
   # subprocess.call(['sudo', 'docker', 'build', '-t', f'product-page/{GRUP_NOM}', './ProductPage'])
   # subprocess.call(['sudo', 'docker', 'run', '--name', f'product-page-{GRUP_NOM}', '-p', '9080', '-d', '-it', f'product-page/{GRUP_NOM}:latest'])
   subprocess.call(['sudo', 'docker', 'run', '--name', f'product-page-{GRUP_NOM}', '-p', '9080:9080', '-e', f'GROUP_NUM={GRUP_NUM}', '-d', f'product-page/{GRUP_NOM}:latest'])

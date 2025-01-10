@@ -7,7 +7,7 @@ FROM python:3.7.7-slim
 EXPOSE 5080
 
 # Definir la variable de entorno GROUP_NUM (se pasará al ejecutar el contenedor)
-ENV GROUP_NUM=default_value
+ENV GROUP_NUM=UNDEFINED
 
 # Establecer el directorio de trabajo dentro del contenedor
 WORKDIR /home
