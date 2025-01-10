@@ -37,7 +37,7 @@ RUN apt-get update -y \
 WORKDIR /bookinfo/src/details
 
 # Comprobar directorio
-RUN ls -la /practica_creativa2/bookinfo/src/details
+# RUN ls -la /practica_creativa2/bookinfo/src/details
 
 # Copiar details.rb
 RUN cp details.rb /opt/microservices
