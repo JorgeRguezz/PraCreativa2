@@ -24,8 +24,8 @@ ENV ENABLE_EXTERNAL_BOOK_SERVICE=true
 RUN apt-get update -y \
         && apt-get install -y python3-pip \
         && apt-get install -y git \
-        && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git \
-        && cd practica_creativa2
+        && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git 
+        # && cd practica_creativa2
 
 # RUN apt-get update -y \
 # && apt-get install -y git \
