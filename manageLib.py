@@ -96,11 +96,11 @@ def mv_docker_compose ():
             - SERVICE_VERSION=v1
           volumes:
             - ratings-vol:/home/rrjorge8/PraCreativa/volumes/ratings
-        volumes:
-          productpage-vol:
-          details-vol:
-          reviews-vol:
-          ratings-vol:
+      volumes:
+        productpage-vol:
+        details-vol:
+        reviews-vol:
+        ratings-vol:
       """
   # Escribir el contenido en el fichero docker-compose.yaml
   with open('docker-compose.yaml', 'w') as file:
