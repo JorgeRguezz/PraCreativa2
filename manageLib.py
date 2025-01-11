@@ -57,7 +57,7 @@ def mv_docker_compose ():
           environment:
             - GROUP_NUMBER=16
           volumes:
-            - productpage-vol:/home/rrjorge8/PraCreativa/volumes/productpage
+            - productpage-vol:/home/rrjorge8/PraCreativa2/volumes/productpage
         details:
           build:
             context: .
@@ -70,7 +70,7 @@ def mv_docker_compose ():
             - SERVICE_VERSION=v1
             - ENABLE_EXTERNAL_BOOK_SERVICE=true
           volumes:
-            - details-vol:/home/rrjorge8/PraCreativa/volumes/details
+            - details-vol:/home/rrjorge8/PraCreativa2/volumes/details
         reviews:
           build:
             context: practica_creativa2/bookinfo/src/reviews/reviews-wlpcfg
@@ -83,7 +83,7 @@ def mv_docker_compose ():
             - ENABLE_RATINGS=true
             - STAR_COLOR=red
           volumes:
-            - reviews-vol:/home/rrjorge8/PraCreativa/volumes/reviews
+            - reviews-vol:/home/rrjorge8/PraCreativa2/volumes/reviews
         ratings:
           build:
             context: .
@@ -95,7 +95,7 @@ def mv_docker_compose ():
           environment:
             - SERVICE_VERSION=v1
           volumes:
-            - ratings-vol:/home/rrjorge8/PraCreativa/volumes/ratings
+            - ratings-vol:/home/rrjorge8/PraCreativa2/volumes/ratings
       volumes:
         productpage-vol:
         details-vol:
