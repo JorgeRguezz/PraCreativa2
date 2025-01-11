@@ -40,7 +40,7 @@ def mv_docker_compose ():
   subprocess.call(['sudo', 'apt', 'install', '-y', 'docker-compose'])
   
   # Cambiar al directorio raíz
-  os.chdir('/home/rrjorge8/PraCreativa/bloque3')
+  os.chdir('/home/rrjorge8/PraCreativa2/bloque3')
   # Crear el contenido del fichero docker-compose.yaml
   log.debug("CONSTRUIR DOCKER_COMPOSE")
   contenido_docker_compose = f"""
