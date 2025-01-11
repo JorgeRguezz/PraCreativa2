@@ -32,72 +32,112 @@ def docker_destroy():
 
 
 # 3. DESPLIEGUE DE LA APLICACIÓN USANDO DOCKER-COMPOSE
-def mv_docker_compose (version, ratings, star):
-  log.debug("mv_docker_compose ")
-  # Guardar directorio raíz
-  raiz = os.getcwd()
-  # Clonar repositorio de la app
-  subprocess.call(['git', 'clone', 'https://github.com/CDPS-ETSIT/practica_creativa2.git', './practica_creativa2'])
+def mv_docker_compose ():
+  log.debug("mv_docker_compose")
   
-  # Crear la imagen de ProductPage
-  log.debug("CONSTRUIR PRODUCT_PAGE")
-
-  subprocess.call(['sudo', 'docker', 'build', '-t', f'product-page/{GRUP_NOM}:latest', './Productpage'])
-  # subprocess.call(['sudo', 'docker', 'build', '-t', f'product-page/{GRUP_NOM}', './ProductPage'])
-  # subprocess.call(['sudo', 'docker', 'run', '--name', f'product-page-{GRUP_NOM}', '-p', '9080', '-d', '-it', f'product-page/{GRUP_NOM}:latest'])
-  subprocess.call(['sudo', 'docker', 'run', '--name', f'product-page-{GRUP_NOM}', '-p', '9080:9080', '-e', f'GROUP_NUM={GRUP_NUM}', '-d', f'product-page/{GRUP_NOM}:latest'])
-
-  # Crear la imagen de Details
-  log.debug("CONSTRUIR DETAILS")
-  subprocess.call(['sudo', 'docker', 'build', '-t', f'details/{GRUP_NOM}:latest', './Details'])
-  # subprocess.call(['sudo', 'docker', 'run', '--name', f'details-{GRUP_NOM}', '-p', '9080', '-d', '-it', f'details/{GRUP_NOM}:latest'])
-  subprocess.call(['sudo', 'docker', 'run', '--name', f'details-{GRUP_NOM}', '-p', '9080:9080', '-e', f'GROUP_NUM={GRUP_NUM}', '-d', f'details/{GRUP_NOM}:latest'])
-
-  # Crear la imagen de Ratings
-  log.debug("CONSTRUIR RATINGS")
-  subprocess.call(['sudo', 'docker', 'build', '-t', f'ratings/{GRUP_NOM}:latest', './Ratings'])
-  # subprocess.call(['sudo', 'docker', 'run', '--name', f'ratings-{GRUP_NOM}', '-p', '9080', '-d', '-it', f'ratings/{GRUP_NOM}:latest'])
-  subprocess.call(['sudo', 'docker', 'run', '--name', f'ratings-{GRUP_NOM}', '-p', '9080:9080', '-e', f'GROUP_NUM={GRUP_NUM}', '-d', f'ratings/{GRUP_NOM}:latest'])
-
-  # Crear la imagen de Reviews
-  log.debug("CONSTRUIR REVIEWS")
-  os.chdir('practica_creativa2/bookinfo/src/reviews')
-  subprocess.call(['sudo', 'docker', 'run', '--rm', '-u', 'root', '-v', '/home/gradle/project', '-w', '/home/gradle/project', 'gradle:4.8.1', 'gradle', 'clean', 'build'])
-  subprocess.call(['sudo', 'docker', 'build', '-t', f'reviews/{GRUP_NOM}:latest', './reviews-wlpcfg']) 
-  # subprocess.call(['sudo', 'docker', 'run', '--name', f'reviews-{GRUP_NOM}', '-p', '9080', '-d', '-it', f'reviews/{GRUP_NOM}:latest'])
-  subprocess.call(['sudo', 'docker', 'run', '--name', f'reviews-{GRUP_NOM}', '-p', '9080:9080', '-e', f'GROUP_NUM={GRUP_NUM}', '-d', f'reviews/{GRUP_NOM}:latest'])
-
+  # Clonar repositorio de la app
+  subprocess.call(['git', 'clone', 'https://github.com/CDPS-ETSIT/practica_creativa2.git'])
+  subprocess.call(['sudo', 'apt', 'install', '-y', 'docker-compose'])
   
   # Cambiar al directorio raíz
-  os.chdir(raiz)
+  os.chdir('/home/rrjorge8/PraCreativa/bloque3')
   # Crear el contenido del fichero docker-compose.yaml
   log.debug("CONSTRUIR DOCKER_COMPOSE")
   contenido_docker_compose = f"""
-      version: '3'
+      version: '3.3'
       services:
-        product-page-{GRUP_NOM}:
+        productpage:
+          build:
+            context: . 
+            dockerfile: Dockerfile
           image: "product-page/{GRUP_NOM}:latest"
+          container_name: product-page-{GRUP_NOM}
           ports:
-            - 9080:9080
+            - '9080:9080'
           environment:
             - GROUP_NUMBER=16
-        details-{GRUP_NOM}:
+          volumes:
+            - productpage-vol:/home/rrjorge8/PraCreativa/volumes/productpage
+        details:
+          build:
+            context: .
+            dockerfile: Dockerfile
           image: "details/{GRUP_NOM}:latest"
+          container_name: details-{GRUP_NOM}
+          ports:
+            - '9080'
           environment:
             - SERVICE_VERSION=v1
             - ENABLE_EXTERNAL_BOOK_SERVICE=true
-        reviews-{GRUP_NOM}:
+          volumes:
+            - details-vol:/home/rrjorge8/PraCreativa/volumes/details
+        reviews:
+          build:
+            context: practica_creativa2/bookinfo/src/reviews/reviews-wlpcfg
           image: "reviews/{GRUP_NOM}:latest"
+          container_name: reviews-{GRUP_NOM}
+          ports:
+            - '9080'
           environment:
-            - SERVICE_VERSION={version}
-            - ENABLE_RATINGS={ratings}
-            - STAR_COLOR={star}
-        ratings-{GRUP_NOM}:
+            - SERVICE_VERSION=v1
+            - ENABLE_RATINGS=true
+            - STAR_COLOR=red
+          volumes:
+            - reviews-vol:/home/rrjorge8/PraCreativa/volumes/reviews
+        ratings:
+          build:
+            context: .
+            dockerfile: Dockerfile
           image: "ratings/{GRUP_NOM}:latest"
+          container_name: ratings-{GRUP_NOM}
+          ports:
+            - '9080'
+          environment:
+            - SERVICE_VERSION=v1
+          volumes:
+            - ratings-vol:/home/rrjorge8/PraCreativa/volumes/ratings
+        volumes:
+          productpage-vol:
+          details-vol:
+          reviews-vol:
+          ratings-vol:
       """
   # Escribir el contenido en el fichero docker-compose.yaml
   with open('docker-compose.yaml', 'w') as file:
     file.write(contenido_docker_compose)
+  
+  # Version 1 --------------------------------------------------------------------------------------------------------------------
+  # # Crear la imagen de ProductPage
+  # log.debug("CONSTRUIR PRODUCT_PAGE")
+  # subprocess.call(['sudo', 'docker', 'build', '-t', f'product-page/{GRUP_NOM}:latest', './Productpage'])
+  # # subprocess.call(['sudo', 'docker', 'build', '-t', f'product-page/{GRUP_NOM}', './ProductPage'])
+  # # subprocess.call(['sudo', 'docker', 'run', '--name', f'product-page-{GRUP_NOM}', '-p', '9080', '-d', '-it', f'product-page/{GRUP_NOM}:latest'])
+  # subprocess.call(['sudo', 'docker', 'run', '--name', f'product-page-{GRUP_NOM}', '-p', '9080:9080', '-e', f'GROUP_NUM={GRUP_NUM}', '-d', f'product-page/{GRUP_NOM}:latest'])
 
-  # Crear los contenedores
-  subprocess.call(['sudo', 'docker-compose', 'up'])
+  # # Crear la imagen de Details
+  # log.debug("CONSTRUIR DETAILS")
+  # subprocess.call(['sudo', 'docker', 'build', '-t', f'details/{GRUP_NOM}:latest', './Details'])
+  # # subprocess.call(['sudo', 'docker', 'run', '--name', f'details-{GRUP_NOM}', '-p', '9080', '-d', '-it', f'details/{GRUP_NOM}:latest'])
+  # subprocess.call(['sudo', 'docker', 'run', '--name', f'details-{GRUP_NOM}', '-p', '9080:9080', '-e', f'GROUP_NUM={GRUP_NUM}', '-d', f'details/{GRUP_NOM}:latest'])
+
+  # # Crear la imagen de Ratings
+  # log.debug("CONSTRUIR RATINGS")
+  # subprocess.call(['sudo', 'docker', 'build', '-t', f'ratings/{GRUP_NOM}:latest', './Ratings'])
+  # # subprocess.call(['sudo', 'docker', 'run', '--name', f'ratings-{GRUP_NOM}', '-p', '9080', '-d', '-it', f'ratings/{GRUP_NOM}:latest'])
+  # subprocess.call(['sudo', 'docker', 'run', '--name', f'ratings-{GRUP_NOM}', '-p', '9080:9080', '-e', f'GROUP_NUM={GRUP_NUM}', '-d', f'ratings/{GRUP_NOM}:latest'])
+
+  # # Crear la imagen de Reviews
+  # log.debug("CONSTRUIR REVIEWS")
+  # os.chdir('practica_creativa2/bookinfo/src/reviews')
+  # subprocess.call(['sudo', 'docker', 'run', '--rm', '-u', 'root', '-v', '/home/gradle/project', '-w', '/home/gradle/project', 'gradle:4.8.1', 'gradle', 'clean', 'build'])
+  # subprocess.call(['sudo', 'docker', 'build', '-t', f'reviews/{GRUP_NOM}:latest', './reviews-wlpcfg']) 
+  # # subprocess.call(['sudo', 'docker', 'run', '--name', f'reviews-{GRUP_NOM}', '-p', '9080', '-d', '-it', f'reviews/{GRUP_NOM}:latest'])
+  # subprocess.call(['sudo', 'docker', 'run', '--name', f'reviews-{GRUP_NOM}', '-p', '9080:9080', '-e', f'GROUP_NUM={GRUP_NUM}', '-d', f'reviews/{GRUP_NOM}:latest'])
+# ------------------------------------------------------------------------------------------------------------------------------
+  os.chdir('practica_creativa2/bookinfo/src/reviews')
+  subprocess.call(['sudo', 'docker', 'run', '--rm', '-u', 'root', '-v', '"$(pwd)":/home/gradle/project', '-w', '/home/gradle/project', 'gradle:4.8.1', 'gradle', 'clean', 'build'])
+  
+  os.chdir('/home/rrjorge8/PraCreativa/bloque3')
+  subprocess.call(['sudo', 'docker-compose', '-f', 'docker-compose.yaml', 'build'])
+  subprocess.call(['sudo', 'docker-compose', '-f', 'docker-compose.yaml', 'up'])
+

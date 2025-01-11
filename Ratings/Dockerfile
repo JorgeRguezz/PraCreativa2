@@ -1,11 +1,11 @@
-# FROM node:12.18.1-slim
-FROM node:14-slim
+FROM node:12.18.1-slim
+# FROM node:14-slim
 
 # Indicar el puerto accesible
 EXPOSE 9080
 
 
-ENV SERVICE_VERSION=v1
+# ENV SERVICE_VERSION=v1
 
 # Cambiar directorio al de /opt/microservices
 # WORKDIR /opt/microservices
@@ -24,24 +24,30 @@ ENV SERVICE_VERSION=v1
 # && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git \
 # && cd practica_creativa2 
 
-RUN apt-get update -y \
-        && apt-get install -y python3-pip \
-        && apt-get install -y git \
-        && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git 
+COPY practica_creativa2/bookinfo/src/ratings/package.json /opt/microservices/ 
+COPY practica_creativa2/bookinfo/src/ratings/ratings.js /opt/microservices/
+
+
+# RUN apt-get update -y \
+#         && apt-get install -y python3-pip \
+#         && apt-get install -y git \
+#         && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git 
 
 
 # Cambiar directorio al de /ratings
-WORKDIR /opt/microservices/practica_creativa2/bookinfo/src/ratings/
-
-# Copiar package.json y ratings.json
-RUN cp package.json /opt/microservices \
-    && cp ratings.js /opt/microservices
-
-# COPY practica_creativa2/bookinfo/src/ratings/package.json /opt/microservices/ 
-# COPY practica_creativa2/bookinfo/src/ratings/ratings.js /opt/microservices/
-
-# Cambiar directorio al de /opt/microservices
+# WORKDIR /opt/microservices/practica_creativa2/bookinfo/src/ratings/
 WORKDIR /opt/microservices/
+
+
+ENV SERVICE_VERSION=v1
+
+# # Copiar package.json y ratings.json
+# RUN cp package.json /opt/microservices \
+#     && cp ratings.js /opt/microservices
+
+
+# # Cambiar directorio al de /opt/microservices
+# WORKDIR /opt/microservices/
 
 # Instalar app
 RUN npm install
