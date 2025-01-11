@@ -33,11 +33,14 @@ ENV SERVICE_VERSION=v1
 # WORKDIR /opt/microservices/practica_creativa2/bookinfo/src/ratings/
 
 # Copiar package.json y ratings.json
-RUN cp practica_creativa2/bookinfo/src/ratings/package.json /opt/microservices \
-    && cp practica_creativa2/bookinfo/src/ratings/ratings.js /opt/microservices
+# RUN cp practica_creativa2/bookinfo/src/ratings/package.json /opt/microservices \
+#     && cp practica_creativa2/bookinfo/src/ratings/ratings.js /opt/microservices
+
+COPY practica_creativa2/bookinfo/src/ratings/package.json /opt/microservices/ 
+COPY practica_creativa2/bookinfo/src/ratings/ratings.js /opt/microservices/
 
 # Cambiar directorio al de /opt/microservices
-WORKDIR /opt/microservices
+WORKDIR /opt/microservices/
 
 # Instalar app
 RUN npm install
