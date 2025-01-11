@@ -30,11 +30,11 @@ ENV SERVICE_VERSION=v1
 
 
 # Cambiar directorio al de /ratings
-WORKDIR /opt/microservices/practica_creativa2/bookinfo/src/ratings/
+# WORKDIR /opt/microservices/practica_creativa2/bookinfo/src/ratings/
 
 # Copiar package.json y ratings.json
-RUN cp package.json /opt/microservices \
-    && cp ratings.js /opt/microservices
+RUN cp practica_creativa2/bookinfo/src/ratings/package.json /opt/microservices \
+    && cp practica_creativa2/bookinfo/src/ratings/ratings.js /opt/microservices
 
 # Cambiar directorio al de /opt/microservices
 WORKDIR /opt/microservices
