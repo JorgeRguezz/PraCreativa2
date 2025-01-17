@@ -3,8 +3,9 @@ FROM ruby:2.7.1-slim
 # Indicar el puerto accesible
 EXPOSE 9080
 
-COPY /home/rrjorge8/PraCreativa2/bloque3/bookinfo/src/details/details.rb /opt/microservices/details.rb
+# COPY /home/rrjorge8/PraCreativa2/bloque3/bookinfo/src/details/details.rb /opt/microservices/details.rb
 # COPY src/details/details.rb /opt/microservices
+COPY ./details.rb /opt/microservices/details.rb
 
 
 WORKDIR /opt/microservices/
