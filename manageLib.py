@@ -41,7 +41,9 @@ def mv_docker_compose ():
   subprocess.call(['sudo', 'apt', 'install', '-y', 'docker-compose'])
   
   os.chdir('/home/rrjorge8/PraCreativa2/bloque3/bookinfo/src/reviews')
-  subprocess.call(['sudo', 'docker', 'run', '--rm', '-u', 'root', '-v', '"$(pwd)":/home/gradle/project', '-w', '/home/gradle/project', 'gradle:4.8.1', 'gradle', 'clean', 'build'])
+  current_dir = os.getcwd()
+  subprocess.call(['sudo', 'docker', 'run', '--rm', '-u', 'root', '-v', f'{current_dir}:/home/gradle/project', '-w', '/home/gradle/project', 'gradle:4.8.1', 'gradle', 'clean', 'build'])
+  # subprocess.call(['sudo', 'docker', 'run', '--rm', '-u', 'root', '-v', '"$(pwd)":/home/gradle/project', '-w', '/home/gradle/project', 'gradle:4.8.1', 'gradle', 'clean', 'build'])
   
   # Cambiar al directorio raíz
   os.chdir('/home/rrjorge8/PraCreativa2/bloque3')
