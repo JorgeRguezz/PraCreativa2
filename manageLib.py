@@ -54,8 +54,8 @@ def mv_docker_compose ():
       services:
         productpage:
           build:
-            context: . 
-            dockerfile: ./Productpage/productpage_dockerfile
+            context: ./Productpage 
+            dockerfile: productpage_dockerfile
           image: "product-page/{GRUP_NOM}:latest"
           container_name: product-page-{GRUP_NOM}
           ports:
@@ -66,8 +66,8 @@ def mv_docker_compose ():
             - productpage-vol:/home/rrjorge8/PraCreativa2/volumes/productpage
         details:
           build:
-            context: .
-            dockerfile: ./Details/details_dockerfile
+            context: ./Details
+            dockerfile: details_dockerfile
           image: "details/{GRUP_NOM}:latest"
           container_name: details-{GRUP_NOM}
           ports:
@@ -92,8 +92,8 @@ def mv_docker_compose ():
             - reviews-vol:/home/rrjorge8/PraCreativa2/volumes/reviews
         ratings:
           build:
-            context: .
-            dockerfile: ./Ratings/ratings_dockerfile
+            context: ./Ratings
+            dockerfile: ratings_dockerfile
           image: "ratings/{GRUP_NOM}:latest"
           container_name: ratings-{GRUP_NOM}
           ports:
