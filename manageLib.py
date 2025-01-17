@@ -39,6 +39,9 @@ def mv_docker_compose ():
   subprocess.call(['git', 'clone', 'https://github.com/CDPS-ETSIT/practica_creativa2.git'])
   subprocess.call(['sudo', 'apt', 'install', '-y', 'docker-compose'])
   
+  os.chdir('/home/rrjorge8/PraCreativa2/practica_creativa2/bookinfo/src/reviews')
+  subprocess.call(['sudo', 'docker', 'run', '--rm', '-u', 'root', '-v', '"$(pwd)":/home/gradle/project', '-w', '/home/gradle/project', 'gradle:4.8.1', 'gradle', 'clean', 'build'])
+  
   # Cambiar al directorio raíz
   os.chdir('/home/rrjorge8/PraCreativa2/bloque3')
   # Crear el contenido del fichero docker-compose.yaml
@@ -134,8 +137,7 @@ def mv_docker_compose ():
   # # subprocess.call(['sudo', 'docker', 'run', '--name', f'reviews-{GRUP_NOM}', '-p', '9080', '-d', '-it', f'reviews/{GRUP_NOM}:latest'])
   # subprocess.call(['sudo', 'docker', 'run', '--name', f'reviews-{GRUP_NOM}', '-p', '9080:9080', '-e', f'GROUP_NUM={GRUP_NUM}', '-d', f'reviews/{GRUP_NOM}:latest'])
 # ------------------------------------------------------------------------------------------------------------------------------
-  os.chdir('/home/rrjorge8/PraCreativa2/practica_creativa2/bookinfo/src/reviews')
-  subprocess.call(['sudo', 'docker', 'run', '--rm', '-u', 'root', '-v', '"$(pwd)":/home/gradle/project', '-w', '/home/gradle/project', 'gradle:4.8.1', 'gradle', 'clean', 'build'])
+
   
   os.chdir('/home/rrjorge8/PraCreativa2/bloque3')
   subprocess.call(['sudo', 'docker-compose', '-f', 'docker-compose.yaml', 'build'])
