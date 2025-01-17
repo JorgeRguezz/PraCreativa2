@@ -54,7 +54,7 @@ def mv_docker_compose ():
       services:
         productpage:
           build:
-            context: ./Productpage 
+            context: /home/rrjorge8/PraCreativa2/Productpage 
             dockerfile: productpage_dockerfile
           image: "product-page/{GRUP_NOM}:latest"
           container_name: product-page-{GRUP_NOM}
@@ -66,7 +66,7 @@ def mv_docker_compose ():
             - productpage-vol:/home/rrjorge8/PraCreativa2/volumes/productpage
         details:
           build:
-            context: ./Details
+            context: /home/rrjorge8/PraCreativa2/Details
             dockerfile: details_dockerfile
           image: "details/{GRUP_NOM}:latest"
           container_name: details-{GRUP_NOM}
@@ -92,7 +92,7 @@ def mv_docker_compose ():
             - reviews-vol:/home/rrjorge8/PraCreativa2/volumes/reviews
         ratings:
           build:
-            context: ./Ratings
+            context: /home/rrjorge8/PraCreativa2/Ratings
             dockerfile: ratings_dockerfile
           image: "ratings/{GRUP_NOM}:latest"
           container_name: ratings-{GRUP_NOM}
