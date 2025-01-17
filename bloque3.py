@@ -8,7 +8,7 @@ def build():
  os.chdir('practica_creativa2/bookinfo/src/reviews')
  os.system('docker run --rm -u root -v "$(pwd)":/home/gradle/project -w /home/gradle/project gradle:4.8.1 gradle clean build')
  # Cambiar de directorio al proyecto principal
- os.chdir('/home/rrjorge8/bloque3')
+ os.chdir('/home/rrjorge8/PraCreativa2')
  os.system('pwd') # Mostrar la ruta actual para verificación
  # Ejecutar los comandos Docker Compose
  os.system('sudo docker-compose -f compose.yaml build')
