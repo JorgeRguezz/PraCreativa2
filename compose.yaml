@@ -1,0 +1,57 @@
+version: '3.3'
+services:
+  productpage:
+    build:
+      context: .
+      dockerfile: productpage_dockerfile
+    image: productpage/16
+    container_name: productpage-16
+    ports: 
+      - '9080:9080'
+    environment:
+      - GROUP_NUMBER=16
+    volumes:
+      - productpage-vol:/home/rrjorge8/bloque3/volumes/productpage
+  details:
+    build:
+      context: .
+      dockerfile: details_dockerfile
+    image: details/16
+    container_name: details-16
+    ports:
+      - '9080'
+    environment:
+      - ENABLE_EXTERNAL_BOOK_SERVICE=true
+      - SERVICE_VERSION=v1
+    volumes:
+      - details-vol:/home/rrjorge8/bloque3/volumes/details  
+  reviews:
+    build:
+      context: practica_creativa2/bookinfo/src/reviews/reviews-wlpcfg
+    image: reviews/16
+    container_name: reviews-16
+    ports:
+      - '9080'
+    environment:
+      - ENABLE_RATINGS=true
+      - STAR_COLOR=red
+      - SERVICE_VERSION=v1
+    volumes:
+      - reviews-vol:/home/rrjorge8/bloque3/volumes/reviews
+  ratings:
+    build:
+      context: .
+      dockerfile: ratings_dockerfile
+    image: ratings/16
+    container_name: ratings-16
+    ports:
+      - '9080'
+    environment:
+      - SERVICE_VERSION=v1
+    volumes:
+      - ratings-vol:/home/rrjorge8/bloque3/volumes/ratings
+volumes:
+ productpage-vol:
+ details-vol:
+ reviews-vol:
+ ratings-vol:

@@ -1,23 +1,13 @@
+# Usar la imagen base del enunciado
 FROM ruby:2.7.1-slim
-
-# Indicar el puerto accesible
+# Exponer por el puerto 9080
 EXPOSE 9080
-
-# COPY /home/rrjorge8/PraCreativa2/bloque3/bookinfo/src/details/details.rb /opt/microservices/details.rb
-# COPY src/details/details.rb /opt/microservices
-COPY ./details.rb /opt/microservices/details.rb
-
-
+# Copiar 'details.rb' al directorio solicitado
+COPY practica_creativa2/bookinfo/src/details/details.rb /opt/microservices/
+# Establecer el directorio de trabajo
 WORKDIR /opt/microservices/
-
-# Especificar variables de entorno
+# Declarar las variables de entorno que piden
 ENV SERVICE_VERSION=v1
 ENV ENABLE_EXTERNAL_BOOK_SERVICE=true
-
-# Lanzar app en el puerto 9080
+# Arrancar el microservicio
 CMD ["ruby", "details.rb", "9080"]
-
-# Indicar que se ha instalado correctamente
-RUN echo "La imagen Docker de DETAILS se ha instalado correctamente"
-
-
