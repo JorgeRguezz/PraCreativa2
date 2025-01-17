@@ -11,7 +11,7 @@ services:
     environment:
       - GROUP_NUMBER=16
     volumes:
-      - productpage-vol:/home/rrjorge8/bloque3/volumes/productpage
+      - productpage-vol:/home/rrjorge8/PraCreativa2/volumes/productpage
   details:
     build:
       context: .
@@ -24,7 +24,7 @@ services:
       - ENABLE_EXTERNAL_BOOK_SERVICE=true
       - SERVICE_VERSION=v1
     volumes:
-      - details-vol:/home/rrjorge8/bloque3/volumes/details  
+      - details-vol:/home/rrjorge8/PraCreativa2/volumes/details  
   reviews:
     build:
       context: practica_creativa2/bookinfo/src/reviews/reviews-wlpcfg
@@ -37,7 +37,7 @@ services:
       - STAR_COLOR=red
       - SERVICE_VERSION=v1
     volumes:
-      - reviews-vol:/home/rrjorge8/bloque3/volumes/reviews
+      - reviews-vol:/home/rrjorge8/PraCreativa2/volumes/reviews
   ratings:
     build:
       context: .
@@ -49,7 +49,7 @@ services:
     environment:
       - SERVICE_VERSION=v1
     volumes:
-      - ratings-vol:/home/rrjorge8/bloque3/volumes/ratings
+      - ratings-vol:/home/rrjorge8/PraCreativa2/volumes/ratings
 volumes:
  productpage-vol:
  details-vol:
