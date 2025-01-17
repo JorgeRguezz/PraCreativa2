@@ -40,7 +40,7 @@ def mv_docker_compose ():
   subprocess.call(['git', 'clone', 'https://github.com/CDPS-ETSIT/practica_creativa2.git', '/home/rrjorge8/PraCreativa2/bloque3'])
   subprocess.call(['sudo', 'apt', 'install', '-y', 'docker-compose'])
   
-  os.chdir('/home/rrjorge8/PraCreativa2/bloque3/practica_creativa2/bookinfo/src/reviews')
+  os.chdir('/home/rrjorge8/PraCreativa2/bloque3/bookinfo/src/reviews')
   subprocess.call(['sudo', 'docker', 'run', '--rm', '-u', 'root', '-v', '"$(pwd)":/home/gradle/project', '-w', '/home/gradle/project', 'gradle:4.8.1', 'gradle', 'clean', 'build'])
   
   # Cambiar al directorio raíz
@@ -77,7 +77,7 @@ def mv_docker_compose ():
             - details-vol:/home/rrjorge8/PraCreativa2/volumes/details
         reviews:
           build:
-            context: practica_creativa2/bookinfo/src/reviews/reviews-wlpcfg
+            context: /bookinfo/src/reviews/reviews-wlpcfg
           image: "reviews/{GRUP_NOM}:latest"
           container_name: reviews-{GRUP_NOM}
           ports:
