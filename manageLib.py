@@ -77,7 +77,7 @@ def mv_docker_compose ():
             - details-vol:/home/rrjorge8/PraCreativa2/volumes/details
         reviews:
           build:
-            context: /bookinfo/src/reviews/reviews-wlpcfg
+            context: ./bookinfo/src/reviews/reviews-wlpcfg
           image: "reviews/{GRUP_NOM}:latest"
           container_name: reviews-{GRUP_NOM}
           ports:
