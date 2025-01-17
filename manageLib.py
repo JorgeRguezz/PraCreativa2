@@ -67,7 +67,7 @@ def mv_docker_compose ():
         details:
           build:
             context: .
-            dockerfile: ./Productpage/details_dockerfile
+            dockerfile: ./Details/details_dockerfile
           image: "details/{GRUP_NOM}:latest"
           container_name: details-{GRUP_NOM}
           ports:
@@ -93,7 +93,7 @@ def mv_docker_compose ():
         ratings:
           build:
             context: .
-            dockerfile: ./Productpage/ratings_dockerfile
+            dockerfile: ./Ratings/ratings_dockerfile
           image: "ratings/{GRUP_NOM}:latest"
           container_name: ratings-{GRUP_NOM}
           ports:
