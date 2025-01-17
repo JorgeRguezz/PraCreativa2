@@ -6,7 +6,7 @@ EXPOSE 9080
 # Cambiar directorio al de /opt/microservices
 # WORKDIR /opt/microservices
 
-COPY bookinfo/src/details/details.rb /opt/microservices
+COPY /home/rrjorge8/PraCreativa/bloque3/bookinfo/src/details/details.rb /opt/microservices
 
 # # Actualizar sistema e instalar dependencias
 # RUN apt-get update \
