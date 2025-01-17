@@ -36,7 +36,8 @@ def mv_docker_compose ():
   log.debug("mv_docker_compose")
   
   # Clonar repositorio de la app
-  subprocess.call(['git', 'clone', 'https://github.com/CDPS-ETSIT/practica_creativa2.git', './bloque3'])
+  # subprocess.call(['git', 'clone', 'https://github.com/CDPS-ETSIT/practica_creativa2.git', './bloque3'])
+  subprocess.call(['git', 'clone', 'https://github.com/CDPS-ETSIT/practica_creativa2.git', '/home/rrjorge8/PraCreativa2/bloque3'])
   subprocess.call(['sudo', 'apt', 'install', '-y', 'docker-compose'])
   
   os.chdir('/home/rrjorge8/PraCreativa2/bloque3/practica_creativa2/bookinfo/src/reviews')
