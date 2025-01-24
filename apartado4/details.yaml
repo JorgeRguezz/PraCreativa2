@@ -1,0 +1,52 @@
+##################################################################################################
+# Details service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: details
+  labels:
+    app: details
+    service: details
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: details
+---    
+##################################################################################################
+# Details deployment
+##################################################################################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: details
+  labels:
+    app: details
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: details
+  template:
+    metadata:
+      labels:
+        app: details
+    spec:
+      containers:
+      - name: 28-details
+        env:
+        - name: ENABLE_EXTERNAL_BOOK_SERVICE
+          value: "true"
+        - name: SERVICE_VERSION
+          value: v3
+        image: 16/details  #<GROUP_NUMBER>/details
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 9080
+        securityContext:
+          runAsUser: 1000
+---
+
+

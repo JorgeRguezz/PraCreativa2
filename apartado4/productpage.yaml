@@ -1,0 +1,45 @@
+##################################################################################################
+# Productpage service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: productpage
+  labels:
+    app: productpage
+    service: productpage
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: productpage
+  type: LoadBalancer #Para que añada una ip externa que será donde visualizaremos la aplicación 
+---
+##################################################################################################
+# Productpage deployment
+##################################################################################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productpage
+  labels:
+    app: productpage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: productpage
+  template:
+    metadata:
+      labels:
+        app: productpage
+    spec:
+      containers:
+      - name: productpage
+        image: 16/productpage   #<GROUP_NUMBER>/productpage
+        imagePullPolicy: IfNotPresent  
+        ports:
+        - containerPort: 9080
+        securityContext:
+          runAsUser: 1000
