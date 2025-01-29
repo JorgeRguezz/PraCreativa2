@@ -10,12 +10,12 @@ def build(version):
     os.system('sudo docker pull jorgerguezz/ratings:16')
     
     # Crear los archivos de despliegue
-    os.system('gcloud container clusters get-credentials clusterk --region europe-southwest1 --project norse-block-448119-j1')
+    os.system('gcloud container clusters get-credentials autopilot-cluster-1 --region europe-southwest1 --project pcreatica2')
     os.system('kubectl apply -f productpage.yaml')
     os.system('kubectl apply -f ratings.yaml')
     os.system('kubectl apply -f details.yaml')
-    os.system('kubectl apply -f reviews-service.yaml')
-    os.system(f'kubectl apply -f reviews-{version}-deployments.yaml')
+    os.system('kubectl apply -f reviews-svc.yaml')
+    os.system(f'kubectl apply -f reviews-{version}-deployment.yaml')
 
 def delete():
     os.system('kubectl delete --all deployments && kubectl delete --all pods && kubectl delete --all services')
