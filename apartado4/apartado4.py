@@ -2,6 +2,14 @@ import os
 import sys
 
 def build(version):
+    
+    # Descargar las imágenes de Docker Hub
+    os.system('sudo docker pull jorgerguezz/details:16')
+    os.system('sudo docker pull jorgerguezz/productpage:16')
+    os.system('sudo docker pull jorgerguezz/reviews:16')
+    os.system('sudo docker pull jorgerguezz/ratings:16')
+    
+    # Crear los archivos de despliegue
     os.system('gcloud container clusters get-credentials clusterk --region europe-southwest1 --project norse-block-448119-j1')
     os.system('kubectl apply -f productpage.yaml')
     os.system('kubectl apply -f ratings.yaml')
