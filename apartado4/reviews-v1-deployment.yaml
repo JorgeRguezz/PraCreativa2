@@ -1,3 +1,6 @@
+##################################################################################################
+# Reviews deployment
+##################################################################################################
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,7 +22,7 @@ spec:
     spec:
       containers:
       - name: reviews
-        image: 16/reviews-v1
+        image: jorgerguezz/reviews     #<GROUP_NUMBER>=16 16/reviews-v1
         imagePullPolicy: IfNotPresent
         env:
         - name: LOG_DIR

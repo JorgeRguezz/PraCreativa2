@@ -1,5 +1,5 @@
 ##################################################################################################
-# Reviews service
+# Reviews deployment
 ##################################################################################################
 apiVersion: apps/v1
 kind: Deployment
@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: reviews
-        image: 16/reviews-v2
+        image: jorgerguezz/reviews:16     
         imagePullPolicy: IfNotPresent
         env:
         - name: LOG_DIR
@@ -41,3 +41,4 @@ spec:
         emptyDir: {}
       - name: tmp
         emptyDir: {}
+---

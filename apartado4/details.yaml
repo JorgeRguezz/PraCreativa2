@@ -9,6 +9,7 @@ metadata:
     app: details
     service: details
 spec:
+  type: ClusterIP
   ports:
   - port: 9080
     name: http
@@ -24,29 +25,27 @@ metadata:
   name: details
   labels:
     app: details
+    version: v1
 spec:
   replicas: 3
   selector:
     matchLabels:
       app: details
+      version: v1
   template:
     metadata:
       labels:
         app: details
+        version: v1
     spec:
       containers:
-      - name: 28-details
+      - name: details
         env:
-        - name: ENABLE_EXTERNAL_BOOK_SERVICE
-          value: "true"
-        - name: SERVICE_VERSION
-          value: v3
-        image: 16/details  #<GROUP_NUMBER>/details
+        image: jorgerguezz/details:16  #16/details
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 9080
         securityContext:
           runAsUser: 1000
 ---
-
 
