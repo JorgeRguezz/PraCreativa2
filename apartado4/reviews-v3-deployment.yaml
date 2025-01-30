@@ -22,11 +22,17 @@ spec:
     spec:
       containers:
       - name: reviews
-        image: jorgerguezz/reviews:16    #<GROUP_NUMBER>=16 16/reviews-v3
+        image: jorgerguezz/reviews-v3:16    #<GROUP_NUMBER>=16 16/reviews-v3
         imagePullPolicy: IfNotPresent
         env:
-        - name: LOG_DIR
-          value: "/tmp/logs"
+          - name: LOG_DIR
+            value: "/tmp/logs"
+          - name: SERVICE_VERSION
+            value: "v1"
+          - name: ENABLE_RATINGS
+            value: "true"
+          - name: STAR_COLOR
+            value: "red"
         ports:
         - containerPort: 9080
         volumeMounts:

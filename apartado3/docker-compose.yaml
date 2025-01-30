@@ -28,7 +28,7 @@ services:
       context: practica_creativa2/bookinfo/src/reviews/reviews-wlpcfg   # Usamos el que ya esta creado
       dockerfile: Dockerfile
     environment:
-      SERVICE_VERSION: v2
+      SERVICE_VERSION: v3
       ENABLE_RATINGS: "true"
       STAR_COLOR: red
     ports:

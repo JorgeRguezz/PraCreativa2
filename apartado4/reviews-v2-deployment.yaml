@@ -25,8 +25,14 @@ spec:
         image: jorgerguezz/reviews:16     
         imagePullPolicy: IfNotPresent
         env:
-        - name: LOG_DIR
-          value: "/tmp/logs"
+          - name: LOG_DIR
+            value: "/tmp/logs"
+          - name: SERVICE_VERSION
+            value: "v1"
+          - name: ENABLE_RATINGS
+            value: "true"
+          - name: STAR_COLOR
+            value: "black"
         ports:
         - containerPort: 9080
         volumeMounts:
