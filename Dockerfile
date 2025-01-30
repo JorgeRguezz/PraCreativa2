@@ -50,4 +50,4 @@ RUN apt-get update -y \
     && pip3 install -r requirements.txt
 
 # Modificar el título y lanzar la aplicación en el puerto 5080
-CMD ["/bin/sh", "-c", "find /app -type f -exec sed -i 's/Simple Bookstore App/GRUPO: ${GROUP_NUM}/g' {} + && python3 productpage_monolith.py --port 5080"]
+CMD ["/bin/sh", "-c", "find /app -type f -exec sed -i 's/Simple Bookstore App/GRUPO: ${GROUP_NUM}/g' {} +"]
