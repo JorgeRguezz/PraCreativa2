@@ -1,57 +1,106 @@
-version: '3.3'
+# version: '3.3'
+# services:
+#   productpage:
+#     build:
+#       context: .
+#       dockerfile: productpage_dockerfile
+#     image: productpage/16
+#     container_name: productpage-16
+#     ports: 
+#       - '9080:9080'
+#     environment:
+#       - GROUP_NUMBER=16
+#     volumes:
+#       - productpage-vol:/home/rrjorge8/PraCreativa2/volumes/productpage
+#   details:
+#     build:
+#       context: .
+#       dockerfile: details_dockerfile
+#     image: details/16
+#     container_name: details-16
+#     ports:
+#       - '9080'
+#     environment:
+#       - ENABLE_EXTERNAL_BOOK_SERVICE=true
+#       - SERVICE_VERSION=v1
+#     volumes:
+#       - details-vol:/home/rrjorge8/PraCreativa2/volumes/details  
+#   reviews:
+#     build:
+#       context: practica_creativa2/bookinfo/src/reviews/reviews-wlpcfg
+#     image: reviews/16
+#     container_name: reviews-16
+#     ports:
+#       - '9080'
+#     environment:
+#       - ENABLE_RATINGS=true
+#       - STAR_COLOR=red
+#       - SERVICE_VERSION=v1
+#     volumes:
+#       - reviews-vol:/home/rrjorge8/PraCreativa2/volumes/reviews
+#   ratings:
+#     build:
+#       context: .
+#       dockerfile: ratings_dockerfile
+#     image: ratings/16
+#     container_name: ratings-16
+#     ports:
+#       - '9080'
+#     environment:
+#       - SERVICE_VERSION=v1
+#     volumes:
+#       - ratings-vol:/home/rrjorge8/PraCreativa2/volumes/ratings
+# volumes:
+#  productpage-vol:
+#  details-vol:
+#  reviews-vol:
+#  ratings-vol:
+
+version: '3'
 services:
   productpage:
     build:
       context: .
-      dockerfile: productpage_dockerfile
-    image: productpage/16
-    container_name: productpage-16
-    ports: 
-      - '9080:9080'
+      dockerfile: Dockerfile_productpage
     environment:
-      - GROUP_NUMBER=16
-    volumes:
-      - productpage-vol:/home/rrjorge8/PraCreativa2/volumes/productpage
+      GROUP_NUMBER: 16
+    ports:
+      - "9080:9080"
+    container_name: "productpage-16"
+    image: "productpage/16"
+
   details:
     build:
       context: .
-      dockerfile: details_dockerfile
-    image: details/16
-    container_name: details-16
-    ports:
-      - '9080'
+      dockerfile: Dockerfile_details
     environment:
-      - ENABLE_EXTERNAL_BOOK_SERVICE=true
-      - SERVICE_VERSION=v1
-    volumes:
-      - details-vol:/home/rrjorge8/PraCreativa2/volumes/details  
+      SERVICE_VERSION: v1
+      ENABLE_EXTERNAL_BOOK_SERVICE: "true"
+    ports:
+      - "9081:9080"  # Cambiado el puerto local para evitar conflictos
+    container_name: "details-16"
+    image: "details/16"
+
   reviews:
     build:
-      context: practica_creativa2/bookinfo/src/reviews/reviews-wlpcfg
-    image: reviews/16
-    container_name: reviews-16
-    ports:
-      - '9080'
+      context: practica_creativa2/bookinfo/src/reviews/reviews-wlpcfg   # Usamos el que ya esta creado
+      dockerfile: Dockerfile
     environment:
-      - ENABLE_RATINGS=true
-      - STAR_COLOR=red
-      - SERVICE_VERSION=v1
-    volumes:
-      - reviews-vol:/home/rrjorge8/PraCreativa2/volumes/reviews
+      SERVICE_VERSION: v3
+      ENABLE_RATINGS: "true"
+      STAR_COLOR: red
+    ports:
+      - "9082:9080"  # Cambiado el puerto local para evitar conflictos
+    container_name: "reviews-16"
+    image: "reviews/16"
+
   ratings:
     build:
       context: .
-      dockerfile: ratings_dockerfile
-    image: ratings/16
-    container_name: ratings-16
-    ports:
-      - '9080'
+      dockerfile: Dockerfile_ratings
     environment:
-      - SERVICE_VERSION=v1
-    volumes:
-      - ratings-vol:/home/rrjorge8/PraCreativa2/volumes/ratings
-volumes:
- productpage-vol:
- details-vol:
- reviews-vol:
- ratings-vol:
+      SERVICE_VERSION: v1
+    ports:
+      - "9083:9080"  # Cambiado el puerto local para evitar conflictos
+    container_name: "ratings-16"
+    image: "ratings/16"
