@@ -21,7 +21,7 @@ RUN apt-get update -y \
         && pip3 install -r requirements.txt
 
 # Cambiar el título de la app y lanzar app en el puerto 5080
-CMD find ./ -type f -exec sed -i "s/Simple Bookstore App/GRUPO$GROUP_NUM/g" {} \; \
+CMD find  ./ -type f -exec sed -i s/Simple Bookstore App/GRUPO: {GRUP_NUM}/g {} + \
     && python3 practica_creativa2/bookinfo/src/productpage/productpage_monolith.py 5080
 
 # Indicar que se ha instalado correctamente
