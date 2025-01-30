@@ -1,0 +1,16 @@
+# Dockerfile para Details
+FROM ruby:2.7.1-slim
+
+# Copiar el fichero details.rb en la ruta /opt/microservices/ dentro del contenedor
+WORKDIR /opt/microservices
+COPY practica_creativa2/bookinfo/src/details/details.rb /opt/microservices
+
+# Especificar dos variables de entorno: SERVICE_VERSION con valor v1 y ENABLE_EXTERNAL_BOOK_SERVICE con valor true
+ENV SERVICE_VERSION=v1
+ENV ENABLE_EXTERNAL_BOOK_SERVICE=true
+
+# Exponer el puerto 9080 
+EXPOSE 9080
+
+# Ejecutar el fichero details.rb usando la instrucción ruby 
+CMD ruby /opt/microservices/details.rb 9080

@@ -1,0 +1,19 @@
+# Dockerfile para Ratings
+FROM node:12.18.1-slim
+
+# Copiar los ficheros package.json y ratings.js a la ruta /opt/microservices/ dentro del contenedor.
+COPY practica_creativa2/bookinfo/src/ratings/package.json /opt/microservices/
+COPY practica_creativa2/bookinfo/src/ratings/ratings.js /opt/microservices/
+
+# Especificar la variable de entorno SERVICE_VERSION con valor v1
+ENV SERVICE_VERSION=v1
+
+# Instalar las dependencias
+WORKDIR /opt/microservices
+RUN npm install
+
+# Exponer el puerto 9080
+EXPOSE 9080
+
+# Ejecutar el fichero ratings.js
+CMD node ratings.js 9080
