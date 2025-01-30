@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: reviews
-        image: jorgerguezz/reviews     #<GROUP_NUMBER>=16 16/reviews-v1
+        image: jorgerguezz/reviews:16     #<GROUP_NUMBER>=16 16/reviews-v1
         imagePullPolicy: IfNotPresent
         env:
         - name: LOG_DIR
