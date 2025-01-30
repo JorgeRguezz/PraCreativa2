@@ -30,7 +30,7 @@
 # # Indicar que se ha instalado correctamente
 # RUN echo "La imagen Docker se ha configurado correctamente"
 
-# Usar la imagen base de Python 3.7.7
+# Usar la imagen base de Python 3.7.7 slim
 FROM python:3.7.7-slim
 
 # Exponer el puerto 5080
@@ -39,15 +39,18 @@ EXPOSE 5080
 # Definir la variable de entorno GROUP_NUM (se pasará al ejecutar el contenedor)
 ENV GROUP_NUM=16
 
-# Establecer el directorio de trabajo dentro del contenedor
+# Establecer el directorio de trabajo
 WORKDIR /app
 
-# Instalar dependencias
+# Instalar dependencias necesarias y clonar el repositorio
 RUN apt-get update -y \
     && apt-get install -y python3-pip git \
     && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git \
     && mv practica_creativa2/bookinfo/src/productpage/* /app/ \
     && pip3 install -r requirements.txt
 
-# Modificar el título y lanzar la aplicación en el puerto 5080
-CMD ["/bin/sh", "-c", "find /app -type f -exec sed -i 's/Simple Bookstore App/GRUPO: ${GROUP_NUM}/g' {} +"]
+# Modificar el título de la aplicación antes de iniciar el servidor
+RUN sed -i 's/Simple Bookstore App/GRUPO: ${GROUP_NUM}/g' templates/productpage.html
+
+# Comando para ejecutar la aplicación en el puerto 5080
+CMD ["python3", "productpage_monolith.py", "5080"]
