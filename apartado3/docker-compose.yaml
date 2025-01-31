@@ -30,7 +30,7 @@ services:
     environment:
       SERVICE_VERSION: v3
       ENABLE_RATINGS: "true"
-      STAR_COLOR: red
+      STAR_COLOR: black
     ports:
       - "9082:9080"  # Cambiado el puerto local para evitar conflictos
     container_name: "reviews-16"
