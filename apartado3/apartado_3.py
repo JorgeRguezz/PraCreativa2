@@ -8,7 +8,7 @@ def main():
     
     orden = sys.argv[1] # Establecer la posición de la orden en la línea de argumentos
 
-    if orden == "constrruir":
+    if orden == "construir":
         #Instalamos Docker
         call(['sudo', 'apt-get', 'install', '-y', 'docker.io'])
         call(['sudo', 'apt-get', 'install', '-y', 'docker-compose'])
